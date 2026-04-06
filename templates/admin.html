@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel — UniEvents</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="/">UNIEVENTS</a>
+  <div class="nav-links">
+    <a href="/">Register</a>
+    <a href="/admin">Admin</a>
+    {% if session.get('admin') %}
+      <a href="/admin/logout">Logout</a>
+    {% endif %}
+  </div>
+</nav>
+
+<main>
+
+  {% if not session.get('admin') %}
+  <!-- LOGIN CARD -->
+  <div class="card">
+    <div class="card-header">
+      <span class="tag">Admin Access</span>
+      <h1>Sign in</h1>
+      <p>Enter the admin password to view registrations.</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="alert {{ category }}">
+          {% if category == 'success' %}✓{% else %}✕{% endif %}
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="/admin/login">
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password"
+               placeholder="Enter admin password" required/>
+      </div>
+      <button type="submit">Login →</button>
+    </form>
+  </div>
+
+  {% else %}
+  <!-- DASHBOARD CARD -->
+  <div class="card wide-card">
+    <div class="card-header">
+      <span class="tag">Admin Dashboard</span>
+      <h1>Registrations</h1>
+      <p>All submitted event registrations.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat-box">
+        <div class="num">{{ registrations|length }}</div>
+        <div class="lbl">Total Registrations</div>
+      </div>
+      {% set events = registrations | map(attribute='event_name') | list | unique | list %}
+      <div class="stat-box">
+        <div class="num">{{ events|length }}</div>
+        <div class="lbl">Events</div>
+      </div>
+    </div>
+
+    {% if registrations %}
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Student ID</th>
+            <th>Event</th>
+            <th>Phone</th>
+            <th>Registered At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in registrations %}
+          <tr>
+            <td><span style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.78rem;">{{ loop.index }}</span></td>
+            <td>{{ r.full_name }}</td>
+            <td>{{ r.email }}</td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:0.82rem;">{{ r.student_id }}</span></td>
+            <td><span class="badge">{{ r.event_name }}</span></td>
+            <td>{{ r.phone or '—' }}</td>
+            <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--muted);">{{ r.registered_at }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state">No registrations yet.</div>
+    {% endif %}
+
+  </div>
+  {% endif %}
+
+</main>
+
+<footer>UniEvents &copy; 2025 — Cloud-Native Event Registration System</footer>
+
+</body>
+</html>
