@@ -5,29 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Panel — UniEvents</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+  <style>
+    body { padding-top: 60px; }
+    main { max-width: 1100px; margin: 0 auto; padding: 3rem; }
+  </style>
 </head>
 <body>
 
 <nav>
-  <a class="brand" href="/">UNIEVENTS</a>
+  <a class="brand" href="/">UniEvents</a>
   <div class="nav-links">
-    <a href="/">Register</a>
-    <a href="/admin">Admin</a>
+    <a href="/">Home</a>
+    <a href="#events">Events</a>
     {% if session.get('admin') %}
       <a href="/admin/logout">Logout</a>
     {% endif %}
   </div>
+  {% if not session.get('admin') %}
+    <a class="nav-cta" href="/admin">Admin Login</a>
+  {% else %}
+    <a class="nav-cta" href="/">Back to Site</a>
+  {% endif %}
 </nav>
 
 <main>
 
   {% if not session.get('admin') %}
-  <!-- LOGIN CARD -->
   <div class="card">
     <div class="card-header">
       <span class="tag">Admin Access</span>
-      <h1>Sign in</h1>
-      <p>Enter the admin password to view registrations.</p>
+      <h1>Sign In</h1>
+      <p>Enter the admin password to view all registrations.</p>
     </div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -45,17 +53,16 @@
         <input type="password" id="password" name="password"
                placeholder="Enter admin password" required/>
       </div>
-      <button type="submit">Login →</button>
+      <button type="submit">Sign In →</button>
     </form>
   </div>
 
   {% else %}
-  <!-- DASHBOARD CARD -->
   <div class="card wide-card">
     <div class="card-header">
       <span class="tag">Admin Dashboard</span>
       <h1>Registrations</h1>
-      <p>All submitted event registrations.</p>
+      <p>All submitted event registrations across UniEvents.</p>
     </div>
 
     <div class="stats">
@@ -66,7 +73,7 @@
       {% set events = registrations | map(attribute='event_name') | list | unique | list %}
       <div class="stat-box">
         <div class="num">{{ events|length }}</div>
-        <div class="lbl">Events</div>
+        <div class="lbl">Events Active</div>
       </div>
     </div>
 
@@ -87,13 +94,13 @@
         <tbody>
           {% for r in registrations %}
           <tr>
-            <td><span style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.78rem;">{{ loop.index }}</span></td>
+            <td><span style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">{{ loop.index }}</span></td>
             <td>{{ r.full_name }}</td>
-            <td>{{ r.email }}</td>
-            <td><span style="font-family:'DM Mono',monospace;font-size:0.82rem;">{{ r.student_id }}</span></td>
+            <td style="color:var(--muted);font-size:0.82rem;">{{ r.email }}</td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:0.8rem;color:var(--muted);">{{ r.student_id }}</span></td>
             <td><span class="badge">{{ r.event_name }}</span></td>
-            <td>{{ r.phone or '—' }}</td>
-            <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--muted);">{{ r.registered_at }}</td>
+            <td style="color:var(--muted);">{{ r.phone or '—' }}</td>
+            <td style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);">{{ r.registered_at }}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -108,7 +115,12 @@
 
 </main>
 
-<footer>UniEvents &copy; 2025 — Cloud-Native Event Registration System</footer>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">UniEvents</div>
+    <div class="footer-copy">© 2025 UniEvents · Cloud-Native Event Registration System</div>
+  </div>
+</footer>
 
 </body>
 </html>
