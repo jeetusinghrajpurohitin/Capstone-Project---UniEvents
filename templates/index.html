@@ -3,83 +3,254 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Event Registration — UniEvents</title>
+  <title>UniEvents — Where Campus Comes Alive</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
 </head>
 <body>
 
+<!-- ── NAV ── -->
 <nav>
-  <a class="brand" href="/">UNIEVENTS</a>
+  <a class="brand" href="/">UniEvents</a>
   <div class="nav-links">
-    <a href="/">Register</a>
+    <a href="#events">Events</a>
+    <a href="#register">Register</a>
     <a href="/admin">Admin</a>
   </div>
+  <a class="nav-cta" href="#register">Reserve a Spot</a>
 </nav>
 
-<main>
-  <div class="card">
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg-orb orb-1"></div>
+  <div class="hero-bg-orb orb-2"></div>
+  <div class="hero-noise"></div>
 
-    <div class="card-header">
-      <span class="tag">Open Registrations</span>
-      <h1>Sign up for an event</h1>
-      <p>Fill in the form below to reserve your spot.</p>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Second Semester · 2025
+    </div>
+    <h1 class="hero-title">
+      Where Campus<br/>
+      <em>Comes Alive.</em>
+    </h1>
+    <p class="hero-desc">
+      UniEvents is your university's official event portal — discover Tech Fests,
+      Cultural Nights, Workshops, and Hackathons all in one place. Register in
+      seconds, show up, and make memories.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#register">Register Now →</a>
+      <a class="btn-ghost" href="#events">Browse Events</a>
     </div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% for category, message in messages %}
-        <div class="alert {{ category }}">
-          {% if category == 'success' %}✓{% else %}✕{% endif %}
-          {{ message }}
-        </div>
-      {% endfor %}
-    {% endwith %}
-
-    <form method="POST" action="/register">
-      <div class="form-group">
-        <label for="full_name">Full Name</label>
-        <input type="text" id="full_name" name="full_name"
-               placeholder="e.g. Priya Sharma" required/>
+    <div class="hero-stats">
+      <div class="hstat">
+        <span class="hstat-num">6</span>
+        <span class="hstat-lbl">Events This Semester</span>
       </div>
-
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email"
-               placeholder="you@university.edu" required/>
+      <div class="hstat-divider"></div>
+      <div class="hstat">
+        <span class="hstat-num">500+</span>
+        <span class="hstat-lbl">Students Registered</span>
       </div>
-
-      <div class="form-group">
-        <label for="student_id">Student ID</label>
-        <input type="text" id="student_id" name="student_id"
-               placeholder="e.g. CS2024001" required/>
+      <div class="hstat-divider"></div>
+      <div class="hstat">
+        <span class="hstat-num">1</span>
+        <span class="hstat-lbl">Click to Register</span>
       </div>
+    </div>
+  </div>
 
-      <div class="form-group">
-        <label for="event_name">Event</label>
-        <div class="select-wrap">
-          <select id="event_name" name="event_name" required>
-            <option value="" disabled selected>Select an event</option>
-            <option>Tech Fest 2025</option>
-            <option>Cultural Night</option>
-            <option>AI/ML Workshop</option>
-            <option>Hackathon Spring</option>
-            <option>Photography Workshop</option>
-            <option>Business Case Competition</option>
-          </select>
-        </div>
+  <div class="hero-scroll-hint">
+    <span>Scroll to explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── EVENTS ── -->
+<section class="events-section" id="events">
+  <div class="section-label">
+    <span class="section-dot"></span>
+    Upcoming Events
+  </div>
+  <h2 class="section-title">Choose Your Experience</h2>
+  <p class="section-sub">Six curated events across technology, culture, and creativity. Something for every student.</p>
+
+  <div class="events-grid">
+
+    <div class="event-card featured">
+      <div class="event-tag">Featured</div>
+      <div class="event-icon">⚡</div>
+      <h3>Tech Fest 2025</h3>
+      <p>The university's flagship technology festival — exhibitions, competitions, and keynotes from industry leaders.</p>
+      <div class="event-meta">
+        <span>Mar 15, 2025</span>
+        <span>Main Auditorium</span>
       </div>
+      <a class="event-register" href="#register">Register →</a>
+    </div>
 
-      <div class="form-group">
-        <label for="phone">Phone Number (optional)</label>
-        <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210"/>
+    <div class="event-card">
+      <div class="event-icon">🎭</div>
+      <h3>Cultural Night</h3>
+      <p>An evening of music, dance, drama and art celebrating the diverse cultures across campus.</p>
+      <div class="event-meta">
+        <span>Mar 22, 2025</span>
+        <span>Open Air Theatre</span>
       </div>
+      <a class="event-register" href="#register">Register →</a>
+    </div>
 
-      <button type="submit">Register Now →</button>
-    </form>
+    <div class="event-card">
+      <div class="event-icon">🤖</div>
+      <h3>AI/ML Workshop</h3>
+      <p>Hands-on sessions on machine learning fundamentals, model training and real-world deployment.</p>
+      <div class="event-meta">
+        <span>Apr 3, 2025</span>
+        <span>CS Lab Block</span>
+      </div>
+      <a class="event-register" href="#register">Register →</a>
+    </div>
+
+    <div class="event-card">
+      <div class="event-icon">💻</div>
+      <h3>Hackathon Spring</h3>
+      <p>36 hours. One problem statement. Build, pitch, and win. Open to all branches and years.</p>
+      <div class="event-meta">
+        <span>Apr 12–13, 2025</span>
+        <span>Innovation Hub</span>
+      </div>
+      <a class="event-register" href="#register">Register →</a>
+    </div>
+
+    <div class="event-card">
+      <div class="event-icon">📷</div>
+      <h3>Photography Workshop</h3>
+      <p>Learn composition, lighting and editing from professional photographers. Bring your camera.</p>
+      <div class="event-meta">
+        <span>Apr 19, 2025</span>
+        <span>Arts Block</span>
+      </div>
+      <a class="event-register" href="#register">Register →</a>
+    </div>
+
+    <div class="event-card">
+      <div class="event-icon">📊</div>
+      <h3>Business Case Competition</h3>
+      <p>Analyse real business problems, build strategies and present to a panel of corporate judges.</p>
+      <div class="event-meta">
+        <span>Apr 26, 2025</span>
+        <span>Seminar Hall</span>
+      </div>
+      <a class="event-register" href="#register">Register →</a>
+    </div>
 
   </div>
-</main>
+</section>
 
-<footer>UniEvents &copy; 2025 — Cloud-Native Event Registration System</footer>
+<!-- ── REGISTER FORM ── -->
+<section class="register-section" id="register">
+  <div class="register-inner">
+
+    <div class="register-left">
+      <div class="section-label">
+        <span class="section-dot"></span>
+        Registration
+      </div>
+      <h2 class="section-title">Secure Your Spot</h2>
+      <p class="section-sub">Fill in your details and you're in. Confirmation is instant — no waiting, no paperwork.</p>
+
+      <div class="reg-perks">
+        <div class="perk">
+          <div class="perk-icon">✓</div>
+          <span>Instant confirmation on submission</span>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">✓</div>
+          <span>Secure cloud storage of your data</span>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">✓</div>
+          <span>Register for any event in under 60 seconds</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="register-right">
+      <div class="form-card">
+        <div class="form-card-header">
+          <span class="form-tag">Open Now</span>
+          <h3>Event Registration</h3>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+            <div class="alert {{ category }}">
+              {% if category == 'success' %}✓{% else %}✕{% endif %}
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="/register">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="full_name">Full Name</label>
+              <input type="text" id="full_name" name="full_name" placeholder="e.g. Priya Sharma" required/>
+            </div>
+            <div class="form-group">
+              <label for="student_id">Student ID</label>
+              <input type="text" id="student_id" name="student_id" placeholder="e.g. CS2024001" required/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@university.edu" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="event_name">Select Event</label>
+            <div class="select-wrap">
+              <select id="event_name" name="event_name" required>
+                <option value="" disabled selected>Choose an event</option>
+                <option>Tech Fest 2025</option>
+                <option>Cultural Night</option>
+                <option>AI/ML Workshop</option>
+                <option>Hackathon Spring</option>
+                <option>Photography Workshop</option>
+                <option>Business Case Competition</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number <span class="optional">(optional)</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210"/>
+          </div>
+
+          <button type="submit">Reserve My Spot →</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">UniEvents</div>
+    <p class="footer-tagline">The official event registration portal of your university.</p>
+    <div class="footer-links">
+      <a href="#events">Events</a>
+      <a href="#register">Register</a>
+      <a href="/admin">Admin Panel</a>
+    </div>
+    <div class="footer-copy">© 2025 UniEvents · Cloud-Native Event Registration System · Built on Google Cloud</div>
+  </div>
+</footer>
 
 </body>
 </html>
