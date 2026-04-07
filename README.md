@@ -55,13 +55,10 @@ User Browser
 ## 📁 Project Structure
 
 ```
-unievents/
-├── app_local.py
+unievents-cloud/
 ├── app_cloud.py
-├── requirements_local.txt
-├── requirements_cloud.txt
-├── Dockerfile_local
-├── Dockerfile_cloud
+├── requirements.txt
+├── Dockerfile
 ├── templates/
 ├── static/
 └── README.md
